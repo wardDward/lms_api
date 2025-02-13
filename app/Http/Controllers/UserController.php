@@ -19,7 +19,7 @@ class UserController extends Controller
             'password' => 'required|confirmed|max:50',
             'email' => 'required|max:255|unique:users,email',
             "gender" => 'required|in:male,female',
-            "role" => 'required|exists:role,name'
+            "role" => 'required|exists:roles,name'
         ]);
 
         $role = Role::where('name', $data['role'])->first();

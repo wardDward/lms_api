@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Role;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -22,8 +22,9 @@ class UserController extends Controller
             "role" => 'required|exists:roles,name'
         ]);
 
-        $role = Role::where('name', $data['role'])->first();
-        $avatar = $data['gender'] === 'male' ? 'male_dp.png' : 'woman_dp.png';
+        $role = Role::where('name', $data['role'])->firstOrFail();
+        // profile feature
+        // $avatar = $data['gender'] === 'male' ? 'male_dp.png' : 'woman_dp.png';
 
         $user = User::create([
             'firstname' => $data['firstname'],
@@ -33,9 +34,10 @@ class UserController extends Controller
             'email' => $data['email'],
             'gender' => $data['gender'],
             'role' => $role,
-            'avatar' => $avatar
+            // profile feature
+            // 'avatar' => $avatar
         ]);
 
-        return $user;
+        return 'user';
     }
 }

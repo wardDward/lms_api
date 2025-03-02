@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\User;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -38,5 +41,26 @@ class UserController extends Controller
         ]);
 
         return $user;
+    }
+
+    public function login(Request $request){
+        $data = $request->validate([
+            'email' => 'required|exists:users,email',
+            'password' => 'required'
+        ]);
+
+        if(!Auth::attempt($data)){
+            throw ValidationException::withMessages([
+                'email' => 'Invalid Credentials, Please Try Again.'
+            ]);
+        }
+
+        $user = Auth::user();
+        return $user->createToken('auth_token')->plainTextToken;
+    }
+
+    public function logout(){
+        auth()->user()->currentAccessToken()->delete();
+        return [];
     }
 }

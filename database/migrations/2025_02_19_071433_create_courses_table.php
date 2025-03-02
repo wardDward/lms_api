@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('duration')->default(0);
             $table->integer('total_lessons')->default(0);
             $table->integer('enrolled_count')->default(0);
-            $table->boolen('is_published')->default(false);
+            $table->boolean('is_published')->default(false);
             $table->timestamps();
         });
     }

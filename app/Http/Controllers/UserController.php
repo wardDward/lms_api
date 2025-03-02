@@ -23,8 +23,8 @@ class UserController extends Controller
         ]);
 
         $role = Role::where('name', $data['role'])->firstOrFail();
-        // profile feature
-        // $avatar = $data['gender'] === 'male' ? 'male_dp.png' : 'woman_dp.png';
+
+        $avatar = $data['gender'] === 'male' ? 'male_dp.png' : 'woman_dp.png';
 
         $user = User::create([
             'firstname' => $data['firstname'],
@@ -34,10 +34,9 @@ class UserController extends Controller
             'email' => $data['email'],
             'gender' => $data['gender'],
             'role' => $role,
-            // profile feature
-            // 'avatar' => $avatar
+            'avatar' => $avatar
         ]);
 
-        return 'user';
+        return $user;
     }
 }

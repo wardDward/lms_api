@@ -56,7 +56,11 @@ class UserController extends Controller
         }
 
         $user = Auth::user();
-        return $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return [
+            'token' => $token
+        ];
     }
 
     public function logout(){

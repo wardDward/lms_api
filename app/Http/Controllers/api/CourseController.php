@@ -51,7 +51,7 @@ class CourseController extends Controller
             'title' => $data['title'],
             'description' => $data['description'] ?? null,
             'category_id' => $categoryId,
-            'instructor_id' => 1,
+            'instructor_id' => 1, //must be auth user
             'price' => $data['price'] ?? 0.00,
             'level' => $data['level'],
         ]);
@@ -80,6 +80,17 @@ class CourseController extends Controller
     public function show($course_id)
     {
         return Course::where('id', $course_id)->with(['lessons', 'courseOwner'])->get();
+    }
+
+    public function delete($course_id)
+    {
+        $course = Course::find($course_id);
+        if (!$course) {
+            return response()->json(['message' => 'Course not found'], 404);
+        }
+        $course->lessons()->delete();
+        $course->delete();
+        return response()->json(['message' => 'Course deleted successfully']);
     }
 
 }

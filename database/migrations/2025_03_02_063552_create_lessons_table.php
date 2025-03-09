@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('lessons', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->constrained('courses')->onDelete(action: 'cascade')->onUpdate('cascade');
+            $table->foreignId('course_id')->constrained(table: 'courses')->onDelete(action: 'cascade')->onUpdate('cascade');
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('attachment')->nullable();
             $table->integer('order')->default(0);
             $table->boolean('is_published')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -32,4 +33,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('lessons');
     }
+    
 };

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('total_lessons')->default(0);
             $table->integer('enrolled_count')->default(0);
             $table->boolean('is_published')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

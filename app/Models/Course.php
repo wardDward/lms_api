@@ -13,7 +13,7 @@ class Course extends Model
     }
 
     public function courseOwner(){
-        return $this->belongsTo(User::class, 'instructor_id');
+    return $this->belongsTo(User::class, 'instructor_id');
     }
 
     public function category(){

@@ -29,5 +29,7 @@ class Lesson extends Model
         return Attribute::make(
             get: fn($value) => $value ? env('APP_URL').Storage::url($value) : null,
         );
-    }
+    } 
+
+
 }

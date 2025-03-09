@@ -9,20 +9,23 @@ class Course extends Model
 {
     use SoftDeletes;
     protected $guarded = [];
-    public function enrolled()
+    public function enrolledUsers()
     {
-        return $this->hasMany(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'course_user', 'course_id', 'user_id');
     }
 
-    public function courseOwner(){
-    return $this->belongsTo(User::class, 'instructor_id');
+    public function courseOwner()
+    {
+        return $this->belongsTo(User::class, 'instructor_id');
     }
 
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
 
-    public function lessons(){
+    public function lessons()
+    {
         return $this->hasMany(Lesson::class, 'course_id');
     }
 }

@@ -77,8 +77,5 @@ class CourseController extends Controller
         return response()->json(['message' => 'Course created successfully!']);
     }
 
-    public function show($course_id)
-    {
-        return Course::where('id', $course_id)->with(['lessons', 'courseOwner'])->get();
-    }
+
 }

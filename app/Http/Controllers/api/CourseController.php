@@ -79,8 +79,6 @@ class CourseController extends Controller
 
     public function show($course_id)
     {
-        return Course::where('id', $course_id)->with(['lessons','courseOwner'])->get();
-       
+        return Course::where('id', $course_id)->with(['lessons', 'courseOwner'])->get();
     }
-
 }
